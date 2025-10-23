@@ -1,7 +1,7 @@
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { T_SHAPED_SKILLS } from "@/lib/data";
 import React from "react";
+import { T_SHAPED_SKILLS } from "@/lib/data";
 
 const SkillsSection = () => {
   return (
