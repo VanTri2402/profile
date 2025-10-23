@@ -4,7 +4,7 @@
 import Link from "next/link";
 import React, { useEffect, useState } from "react"; // Import useState
 import { Button } from "@/components/ui/button"; // Import Button
-import ChatbotModal from "../chatbot/ChatbotModal"; // Import Modal
+import ChatbotModal from "@/components/chatbot/ChatbotModal"; // Import Modal
 import { MessageCircleQuestion } from "lucide-react"; // Example Icon
 
 // ... (navItems giữ nguyên hoặc cập nhật nếu cần)
