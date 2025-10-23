@@ -3,12 +3,14 @@ import {
   GoogleGenerativeAI,
   HarmCategory,
   HarmBlockThreshold,
+  Content, // Import Content type
 } from "@google/generative-ai";
 import { NextResponse } from "next/server";
-// Đảm bảo đường dẫn này đúng, file của em tên là constant.ts
+// Đảm bảo file này tồn tại: src/lib/constant.ts
 import { SYSTEM_INSTRUCTION } from "@/lib/constant";
 
-// Cấu hình an toàn
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || "");
+
 const safetySettings = [
   {
     category: HarmCategory.HARM_CATEGORY_HARASSMENT,
@@ -30,7 +32,8 @@ const safetySettings = [
 
 export async function POST(request: Request) {
   try {
-    // 1. Nhận message và history từ frontend
+    // 1. Nhận message VÀ history từ frontend
+    // Frontend (ChatbotModal.tsx) SẼ được sửa để gửi cả hai
     const { message, history } = await request.json();
 
     if (!message) {
@@ -40,19 +43,16 @@ export async function POST(request: Request) {
       );
     }
 
-    const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || "");
-
-    // 2. Sử dụng systemInstruction (Cách A - Tốt nhất)
+    // 2. Sử dụng systemInstruction (Cách này là tốt nhất)
     const model = genAI.getGenerativeModel({
-      model: "gemini-2.5-pro", // Hoặc model em muốn
-      systemInstruction: SYSTEM_INSTRUCTION, // Prompt hệ thống của em
+      model: "gemini-2.5-pro", // Đổi "gemini-2.5-pro" thành model hợp lệ như "gemini-1.5-flash"
+      systemInstruction: SYSTEM_INSTRUCTION,
       safetySettings: safetySettings,
     });
 
-    // 3. Khởi tạo chat với history nhận được từ frontend
-    // History này đã được frontend format (user, model, user, model...)
+    // 3. Khởi tạo chat với history nhận được (đã được format bởi frontend)
     const chat = model.startChat({
-      history: history || [], // Sử dụng history nếu có
+      history: (history || []) as Content[], // Ép kiểu `history` thành `Content[]`
     });
 
     // 4. Gửi tin nhắn mới của người dùng
@@ -65,6 +65,7 @@ export async function POST(request: Request) {
     console.error("Error calling Gemini API:", error);
     const errorMessage =
       error instanceof Error ? error.message : "Unknown error";
+    // Trả về lỗi chi tiết để debug
     return NextResponse.json(
       { error: `Failed to get response from AI: ${errorMessage}` },
       { status: 500 }
