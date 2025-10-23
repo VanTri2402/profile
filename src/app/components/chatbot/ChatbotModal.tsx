@@ -50,6 +50,7 @@ const ChatbotModal: React.FC<ChatbotModalProps> = ({
     scrollToBottom(); // Cuộn khi gửi
 
     try {
+      // Gọi API Route của Next.js
       const response = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -79,12 +80,15 @@ const ChatbotModal: React.FC<ChatbotModalProps> = ({
       setMessages((prev) => [...prev, errorMessage]);
     } finally {
       setIsLoading(false);
+      // Không cần cuộn ở đây vì useEffect sẽ xử lý
     }
   };
 
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-[600px] h-[80vh] flex flex-col p-0 gap-0 bg-card/80 dark:bg-card/90 backdrop-blur-md border-border/30">
+        {" "}
+        {/* Tùy chỉnh style modal */}
         <DialogHeader className="p-4 border-b border-border/20 text-center sticky top-0 bg-inherit z-10">
           <DialogTitle className="text-lg font-semibold">
             Tri (Alden)'s AI Assistant
@@ -93,11 +97,13 @@ const ChatbotModal: React.FC<ChatbotModalProps> = ({
             Powered by Gemini
           </DialogDescription>
           {/* Optional: Add gradient line here if desired */}
-          <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-blue-500 via-red-500 to-yellow-500" />
+          {/* <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-blue-500 via-red-500 to-yellow-500" /> */}
         </DialogHeader>
+        {/* Sử dụng div với ref để cuộn */}
         <div ref={chatHistoryRef} className="flex-1 overflow-y-auto px-4 pb-4">
           <ChatHistory messages={messages} isLoading={isLoading} />
         </div>
+        {/* Input ở dưới cùng */}
         <div className="border-t border-border/20 sticky bottom-0 bg-inherit">
           <ChatInput onSendMessage={handleSendMessage} isLoading={isLoading} />
         </div>
