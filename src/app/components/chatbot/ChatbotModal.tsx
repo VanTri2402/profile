@@ -1,4 +1,4 @@
-// src/components/chatbot/ChatbotModal.tsx
+// src/app/components/chatbot/ChatbotModal.tsx
 "use client";
 
 import React, { useState, useEffect, useRef, useCallback } from "react";
@@ -8,11 +8,10 @@ import {
   DialogHeader,
   DialogTitle,
   DialogDescription,
-  DialogFooter,
-} from "@/components/ui/dialog"; // Import shadcn Dialog
-import ChatHistory from "./ChatHistory"; // Import component của bạn
-import ChatInput from "./ChatInput"; // Import component của bạn
-import type { ChatMessage } from "@/lib/type"; // Import type từ vị trí mới
+} from "@/components/ui/dialog";
+import ChatHistory from "./ChatHistory";
+import ChatInput from "./ChatInput";
+import type { ChatMessage } from "@/lib/type";
 
 interface ChatbotModalProps {
   isOpen: boolean;
@@ -30,12 +29,16 @@ const ChatbotModal: React.FC<ChatbotModalProps> = ({
     },
   ]);
   const [isLoading, setIsLoading] = useState(false);
-  const chatHistoryRef = useRef<HTMLDivElement>(null); // Ref cho cuộn
+  const chatHistoryRef = useRef<HTMLDivElement>(null);
 
-  // Hàm cuộn xuống cuối
   const scrollToBottom = useCallback(() => {
     if (chatHistoryRef.current) {
-      chatHistoryRef.current.scrollTop = chatHistoryRef.current.scrollHeight;
+      setTimeout(() => {
+        if (chatHistoryRef.current) {
+          chatHistoryRef.current.scrollTop =
+            chatHistoryRef.current.scrollHeight;
+        }
+      }, 0);
     }
   }, []);
 
@@ -44,17 +47,27 @@ const ChatbotModal: React.FC<ChatbotModalProps> = ({
   }, [messages, isLoading, scrollToBottom]);
 
   const handleSendMessage = async (messageText: string) => {
-    const userMessage: ChatMessage = { role: "user", text: messageText };
-    setMessages((prev) => [...prev, userMessage]);
+    if (!messageText.trim()) return;
+
+    const userMessage: ChatMessage = { role: "user", text: messageText.trim() };
+    const newMessages = [...messages, userMessage];
+    setMessages(newMessages);
     setIsLoading(true);
-    scrollToBottom(); // Cuộn khi gửi
+
+    const historyForApi = newMessages.slice(1, -1).map((msg) => ({
+      role: msg.role === "ai" ? "model" : "user",
+      parts: [{ text: msg.text }],
+    }));
+    const currentMessage = userMessage.text;
 
     try {
-      // Gọi API Route của Next.js
       const response = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: messageText }),
+        body: JSON.stringify({
+          message: currentMessage,
+          history: historyForApi,
+        }),
       });
 
       if (!response.ok) {
@@ -67,7 +80,7 @@ const ChatbotModal: React.FC<ChatbotModalProps> = ({
         throw new Error(data.error);
       }
 
-      const aiResponse: ChatMessage = { role: "ai", text: data.reply || "..." }; // Lấy reply từ backend
+      const aiResponse: ChatMessage = { role: "ai", text: data.reply || "..." };
       setMessages((prev) => [...prev, aiResponse]);
     } catch (error) {
       console.error("Error sending message:", error);
@@ -80,32 +93,68 @@ const ChatbotModal: React.FC<ChatbotModalProps> = ({
       setMessages((prev) => [...prev, errorMessage]);
     } finally {
       setIsLoading(false);
-      // Không cần cuộn ở đây vì useEffect sẽ xử lý
     }
   };
 
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[600px] h-[80vh] flex flex-col p-0 gap-0 bg-card/80 dark:bg-card/90 backdrop-blur-md border-border/30">
-        {" "}
-        {/* Tùy chỉnh style modal */}
-        <DialogHeader className="p-4 border-b border-border/20 text-center sticky top-0 bg-inherit z-10">
-          <DialogTitle className="text-lg font-semibold">
+      <DialogContent
+        className="
+          sm:max-w-[600px] h-[80vh] flex flex-col p-0 gap-0
+          bg-gradient-to-br from-gray-900 via-zinc-950 to-black  // Nền gradient tối
+          text-foreground rounded-xl shadow-2xl // Bo tròn, bóng đổ sâu
+          border border-transparent relative // Chuẩn bị cho viền gradient
+          overflow-hidden // Cắt nội dung vượt ra ngoài (cho gradient border)
+        "
+        style={{
+          // Viền gradient đặc biệt cho DialogContent (hack)
+          // Có thể thay bằng lớp div bọc ngoài nếu muốn dùng p-px
+          borderImage: "linear-gradient(to right, #3B82F6, #EF4444, #F59E0B) 1",
+          borderWidth: "2px", // Độ dày của viền
+          borderStyle: "solid",
+        }}
+      >
+        {/* Header của Modal */}
+        <DialogHeader
+          className="
+            p-4 border-b border-border/20 text-center flex-shrink-0
+            bg-gradient-to-r from-gray-800/80 via-zinc-900/80 to-gray-800/80 // Gradient nhẹ cho header
+            backdrop-blur-sm z-10 relative
+          "
+        >
+          <DialogTitle
+            className="
+              text-lg font-bold
+              bg-clip-text text-transparent // Cho phép text có gradient
+              bg-gradient-to-r from-blue-400 via-red-400 to-yellow-400 // Gradient cho tiêu đề
+            "
+          >
             Tri (Alden)'s AI Assistant
           </DialogTitle>
-          <DialogDescription className="text-xs text-muted-foreground">
+          <DialogDescription className="text-xs text-muted-foreground mt-1">
             Powered by Gemini
           </DialogDescription>
-          {/* Optional: Add gradient line here if desired */}
-          {/* <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-blue-500 via-red-500 to-yellow-500" /> */}
+          {/* Đường phân cách gradient */}
+          <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-blue-500 via-red-500 to-yellow-500 opacity-60"></div>
         </DialogHeader>
-        {/* Sử dụng div với ref để cuộn */}
-        <div ref={chatHistoryRef} className="flex-1 overflow-y-auto px-4 pb-4">
+
+        {/* Khu vực hiển thị lịch sử chat */}
+        <div
+          ref={chatHistoryRef}
+          className="flex-1 overflow-y-auto p-4 custom-scrollbar"
+        >
+          {" "}
+          {/* Thêm custom-scrollbar */}
           <ChatHistory messages={messages} isLoading={isLoading} />
         </div>
-        {/* Input ở dưới cùng */}
-        <div className="border-t border-border/20 sticky bottom-0 bg-inherit">
+
+        {/* Khu vực nhập liệu */}
+        <div className="border-t border-border/20 bg-gradient-to-r from-gray-800/80 via-zinc-900/80 to-gray-800/80 flex-shrink-0 backdrop-blur-sm relative">
+          {" "}
+          {/* Gradient và blur cho footer */}
           <ChatInput onSendMessage={handleSendMessage} isLoading={isLoading} />
+          {/* Đường phân cách gradient */}
+          <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-blue-500 via-red-500 to-yellow-500 opacity-60"></div>
         </div>
       </DialogContent>
     </Dialog>
