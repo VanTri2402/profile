@@ -3,36 +3,20 @@
 
 import Link from "next/link";
 import React, { useEffect, useState } from "react"; // Import useState
-import { Button } from "@/components/ui/button"; // Import Button
+import { Button } from "../ui/button"; // Import Button
 import ChatbotModal from "../chatbot/ChatbotModal"; // Import Modal
 import { MessageCircleQuestion } from "lucide-react"; // Example Icon
+import { Separator } from "../ui/separator";
 
 // ... (navItems giữ nguyên hoặc cập nhật nếu cần)
 const navItems = [
   { name: "Skills", href: "#skills" },
-  // { name: "Experience", href: "#experience" }, // Cân nhắc thêm lại nếu đã build xong
   { name: "Projects", href: "#projects" },
-  // { name: "Home", href: "#hero" }, // Nên bỏ link Home này
+  { name: "Home", href: "#hero" }, // Nên bỏ link Home này
   { name: "Discipline", href: "#discipline" },
-  { name: "Experience", href: "#experience" }, // Example: Added Experience link back
+  { name: "Experience", href: "#experience" },
 ];
 
-const DownloadIcon = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    className="h-5 w-5 mr-2"
-    fill="none"
-    viewBox="0 0 24 24"
-    stroke="currentColor"
-    strokeWidth={2}
-  >
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
-    />
-  </svg>
-);
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isChatOpen, setIsChatOpen] = useState(false); // State cho modal
@@ -49,8 +33,6 @@ export function Navbar() {
 
   return (
     <>
-      {" "}
-      {/* Dùng Fragment để chứa cả header và modal */}
       <header
         className={`fixed top-0 left-0 z-50 transition-all duration-300 w-full ${
           isScrolled
@@ -74,7 +56,6 @@ export function Navbar() {
                 {item.name}
               </Link>
             ))}
-            {/* Nút mở Chatbot */}
             <Button
               variant="outline"
               size="sm"
@@ -84,18 +65,7 @@ export function Navbar() {
               <MessageCircleQuestion className="size-4" />
               Ask AI
             </Button>
-
-            <a
-              href="/cv-nguyen-huu-van-tri.pdf"
-              download
-              className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 focus:ring-offset-gray-800 transition-colors"
-              aria-label="Download Tri's CV"
-            >
-              <DownloadIcon />
-              Download CV
-            </a>
           </div>
-          {/* Nút mở Chatbot cho Mobile (cần thêm logic menu mobile nếu có) */}
           <div className="md:hidden">
             <Button
               variant="ghost"
@@ -108,8 +78,8 @@ export function Navbar() {
           </div>
         </nav>
       </header>
-      {/* Render Modal */}
       <ChatbotModal isOpen={isChatOpen} onOpenChange={setIsChatOpen} />
+      <Separator />
     </>
   );
 }

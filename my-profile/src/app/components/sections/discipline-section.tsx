@@ -1,7 +1,7 @@
 import React from "react";
 import * as LucideIcons from "lucide-react"; // Import all icons
 import { DISCIPLINE_ITEMS } from "@/lib/data";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 const DisciplineSection = () => {
   const IconComponent = ({ name }: { name: string | undefined }) => {
     if (!name || !(name in LucideIcons)) {
