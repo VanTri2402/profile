@@ -9,11 +9,14 @@ export default function ExperienceSection() {
       id="experience"
       className="container max-w-3xl mx-auto px-4 py-20 md:py-28" // Adjusted max-width for focus
     >
-      <div className="text-center mb-16">
-        <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
+      <div className="text-center mb-16" data-aos="fade-up">
+        <h2
+          className="text-3xl md:text-4xl font-bold tracking-tight"
+          data-aos-delay="300"
+        >
           Career Journey
         </h2>
-        <p className="text-lg text-muted-foreground mt-2">
+        <p className="text-lg text-muted-foreground mt-2" data-aos-delay="400">
           Key milestones and contributions.
         </p>
       </div>
@@ -31,8 +34,10 @@ export default function ExperienceSection() {
             className={cn(
               "relative mb-12 md:mb-16",
               "md:flex md:items-start",
-              index % 2 === 0 ? "md:flex-row-reverse" : "" // Alternate sides on desktop
+              index % 2 === 0 ? "md:flex-row-reverse" : ""
             )}
+            data-aos="fade-left"
+            data-aos-delay="500"
           >
             {/* Timeline Dot (Desktop only) */}
             <div className="hidden md:block absolute left-1/2 top-1 w-3 h-3 rounded-full border-2 border-primary bg-background -translate-x-1/2 z-10" />

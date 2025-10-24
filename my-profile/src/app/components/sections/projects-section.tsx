@@ -20,18 +20,26 @@ const ProjectsSection = () => {
       id="projects"
       className="container max-w-5xl mx-auto px-4 py-20 md:py-28"
     >
-      <div className="text-center mb-12">
-        <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
+      <div className="text-center mb-12" data-aos="fade-left">
+        <h2
+          className="text-3xl md:text-4xl font-bold tracking-tight"
+          data-aos-delay="300"
+        >
           Projects & Research
         </h2>
-        <p className="text-lg text-muted-foreground mt-2">
+        <p className="text-lg text-muted-foreground mt-2" data-aos-delay="500">
           Demonstrate capacity through real projects.
         </p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        {PROJECTS.map((project) => (
-          <Card key={project.id} className="flex flex-col overflow-hidden ">
+        {PROJECTS.map((project, index) => (
+          <Card
+            key={project.id}
+            className="flex flex-col overflow-hidden"
+            data-aos-delay={index * 300}
+            data-aos="fade-up"
+          >
             <div className="relative w-full h-48 md:h-56">
               <Image
                 src={project.imageUrl}

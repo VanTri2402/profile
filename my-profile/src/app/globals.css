@@ -126,126 +126,15 @@
     @apply bg-background text-foreground;
   }
 }
-/* src/app/globals.css */
 
-/* ... (các CSS hiện có của bạn) ... */
-
-/* Custom Gradient Background for subtle effects */
-.gradient-bg-1 {
-  background: radial-gradient(
-      circle at top left,
-      var(--gradient-blue) 0%,
-      transparent 40%
-    ),
-    radial-gradient(
-      circle at bottom right,
-      var(--gradient-red) 0%,
-      transparent 40%
-    );
-  background-blend-mode: overlay; /* Hoặc screen, lighten tùy hiệu ứng mong muốn */
-}
-
-.gradient-bg-2 {
-  background: radial-gradient(
-      circle at top right,
-      var(--gradient-yellow) 0%,
-      transparent 40%
-    ),
-    radial-gradient(
-      circle at bottom left,
-      var(--gradient-blue) 0%,
-      transparent 40%
-    );
-  background-blend-mode: overlay;
-}
-
-/* Custom Gradient Border (for a pseudo-element) */
-/* This is a common trick to create a gradient border */
-.gradient-border-mask {
-  position: relative;
-  /* background: hsl(var(--card));  */
-  isolation: isolate; /* Tạo stacking context mới */
-}
-.gradient-border-mask::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit; /* Kế thừa border-radius từ parent */
-  padding: 1px; /* Độ dày của viền gradient */
-  background: linear-gradient(
-    to right,
-    var(--gradient-blue),
-    var(--gradient-red),
-    var(--gradient-yellow)
-  );
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  pointer-events: none; /* Đảm bảo không chặn sự kiện click của content */
-  z-index: -1; /* Đặt gradient border ở dưới content */
-}
-
-/* Define CSS Variables for your specific gradient colors */
-/* Thêm vào ":root" hoặc ":root[data-theme='dark']" */
-:root {
-  --gradient-blue: 220 100% 60%; /* HSL for a vivid blue */
-  --gradient-red: 0 100% 60%; /* HSL for a vivid red */
-  --gradient-yellow: 40 100% 60%; /* HSL for a vivid yellow */
-}
-
-/* Nếu bạn muốn chỉ áp dụng trong dark mode */
-.dark {
-  --gradient-blue: 220 100% 60%;
-  --gradient-red: 0 100% 60%;
-  --gradient-yellow: 40 100% 60%;
-}
-.custom-scrollbar::-webkit-scrollbar {
-  width: 8px; /* Chiều rộng của thanh cuộn */
-}
-
-.custom-scrollbar::-webkit-scrollbar-track {
-  background: var(--background); /* Nền của track */
-  border-radius: 10px;
-}
-
-.custom-scrollbar::-webkit-scrollbar-thumb {
-  background-color: var(--primary); /* Màu của thanh cuộn */
-  border-radius: 10px;
-  border: 2px solid var(--background); /* Viền để làm nó nhỏ hơn track */
-}
-
-.custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background-color: var(--primary-foreground); /* Màu khi hover */
-}
-/* src/app/globals.css */
-
-/* ... Các CSS hiện có ... */
-
-/* CSS cho hiệu ứng viền gradient phát sáng khi hover */
-@layer utilities {
-  .card-glow-border::before {
-    content: "";
-    position: absolute;
-    inset: -2px; /* Độ dày của vùng glow (điều chỉnh nếu cần) */
-    border-radius: calc(
-      0.75rem + 2px
-    ); /* Phải lớn hơn bo góc của Card (0.75rem = rounded-xl) */
-    background-image: linear-gradient(
-      to right,
-      theme("colors.red.600"),
-      theme("colors.violet.600"),
-      theme("colors.yellow.500")
-    );
-    filter: blur(6px); /* Độ mờ của glow (điều chỉnh nếu cần) */
-    opacity: 0;
-    transition: opacity 1000ms; /* Transition chậm khi tắt */
-    z-index: -1; /* Đặt phía sau Card */
-    pointer-events: none; /* Cho phép click xuyên qua */
+@keyframes subtleGradientAnimation {
+  0% {
+    background-position: 0% 50%;
   }
-
-  .group:hover .card-glow-border::before {
-    opacity: 0.75; /* Độ sáng khi hover (điều chỉnh nếu cần) */
-    transition-duration: 200ms; /* Transition nhanh khi bật */
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
   }
 }

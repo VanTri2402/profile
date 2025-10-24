@@ -8,11 +8,10 @@ import ChatbotModal from "../chatbot/ChatbotModal"; // Import Modal
 import { MessageCircleQuestion } from "lucide-react"; // Example Icon
 import { Separator } from "../ui/separator";
 
-// ... (navItems giữ nguyên hoặc cập nhật nếu cần)
 const navItems = [
+  { name: "About", href: "#hero" },
   { name: "Skills", href: "#skills" },
   { name: "Projects", href: "#projects" },
-  { name: "Home", href: "#hero" }, // Nên bỏ link Home này
   { name: "Discipline", href: "#discipline" },
   { name: "Experience", href: "#experience" },
 ];
@@ -39,6 +38,8 @@ export function Navbar() {
             ? "bg-background/80 backdrop-blur-sm shadow-md"
             : "bg-transparent"
         }`}
+        data-aos="fade-in"
+        data-aos-delay="300"
       >
         <nav className="container max-w-5xl mx-auto p-4 flex justify-between items-center ">
           <Link href="#hero" className="font-bold text-xl">

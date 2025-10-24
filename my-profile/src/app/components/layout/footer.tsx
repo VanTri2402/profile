@@ -9,7 +9,9 @@ export function Footer() {
   return (
     <footer
       id="contact"
-      className="mt-20 md:mt-28 border-t border-border/10 bg-muted/30 dark:bg-card/50" // Nền khác biệt nhẹ
+      className="mt-20 md:mt-28 border-t border-border/10 bg-muted/30 dark:bg-card/50"
+      data-aos="fade-up"
+      data-aos-delay="400" // Nền khác biệt nhẹ
     >
       <div className="container max-w-5xl mx-auto px-4 py-12 md:py-16 text-center">
         {" "}
