@@ -3,18 +3,36 @@
 
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import {
-  Dialog,
-  DialogContent,
+  Dialog, // Giữ lại Dialog từ shadcn/ui
+  DialogContent, // Không dùng DialogContent gốc vì custom viền gradient
   DialogHeader,
   DialogTitle,
   DialogDescription,
 } from "@/components/ui/dialog";
 import ChatHistory from "./ChatHistory";
 import ChatInput from "./ChatInput";
-import type { ChatMessage } from "@/lib/type";
-import * as DialogPrimitive from "@radix-ui/react-dialog";
-import { XIcon } from "lucide-react";
-import { cn } from "@/lib/utils";
+import type { ChatMessage } from "@/lib/type"; // Đảm bảo đường dẫn đúng
+import * as DialogPrimitive from "@radix-ui/react-dialog"; // Import gốc để custom
+import { XIcon } from "lucide-react"; // Import icon close
+import { cn } from "@/lib/utils"; // Import cn utility
+
+const DownloadIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    className="h-5 w-5 mr-2"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+    strokeWidth={2}
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
+    />
+  </svg>
+);
+
 interface ChatbotModalProps {
   isOpen: boolean;
   onOpenChange: (open: boolean) => void;
@@ -31,7 +49,7 @@ const ChatbotModal: React.FC<ChatbotModalProps> = ({
     },
   ]);
   const [isLoading, setIsLoading] = useState(false);
-  const chatHistoryRef = useRef<HTMLDivElement>(null);
+  const chatHistoryRef = useRef<HTMLDivElement>(null); // Ref để cuộn chat
 
   const scrollToBottom = useCallback(() => {
     if (chatHistoryRef.current) {
@@ -40,7 +58,7 @@ const ChatbotModal: React.FC<ChatbotModalProps> = ({
           chatHistoryRef.current.scrollTop =
             chatHistoryRef.current.scrollHeight;
         }
-      }, 0);
+      }, 0); // Dùng setTimeout để đảm bảo DOM cập nhật
     }
   }, []);
 
@@ -49,42 +67,57 @@ const ChatbotModal: React.FC<ChatbotModalProps> = ({
   }, [messages, isLoading, scrollToBottom]);
 
   const handleSendMessage = async (messageText: string) => {
-    if (!messageText.trim()) return;
+    // Không gửi nếu input rỗng hoặc đang loading
+    if (!messageText.trim() || isLoading) return;
 
     const userMessage: ChatMessage = { role: "user", text: messageText.trim() };
+
+    // Cập nhật UI ngay với tin nhắn của user
     const newMessages = [...messages, userMessage];
     setMessages(newMessages);
     setIsLoading(true);
 
+    // Chuẩn bị history để gửi lên backend:
+    // 1. Bỏ qua tin nhắn chào mừng (index 0)
+    // 2. Chuyển 'ai' -> 'model'
+    // 3. Chỉ lấy các tin nhắn *trước* tin nhắn user vừa gửi
     const historyForApi = newMessages.slice(1, -1).map((msg) => ({
       role: msg.role === "ai" ? "model" : "user",
       parts: [{ text: msg.text }],
     }));
+
+    // Tin nhắn hiện tại của user
     const currentMessage = userMessage.text;
 
     try {
+      // Gọi API Route (backend)
       const response = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          message: currentMessage,
-          history: historyForApi,
+          message: currentMessage, // Tin nhắn mới
+          history: historyForApi, // Lịch sử trước đó
         }),
       });
 
+      // Xử lý lỗi nếu gọi API thất bại
       if (!response.ok) {
         throw new Error(`API request failed with status ${response.status}`);
       }
 
       const data = await response.json();
 
+      // Xử lý lỗi nếu backend trả về lỗi (ví dụ: lỗi từ Gemini)
       if (data.error) {
         throw new Error(data.error);
       }
 
+      // Tạo tin nhắn trả lời từ AI
       const aiResponse: ChatMessage = { role: "ai", text: data.reply || "..." };
+      // Cập nhật UI với tin nhắn của AI
       setMessages((prev) => [...prev, aiResponse]);
     } catch (error) {
+      // Hiển thị lỗi ra UI nếu có vấn đề
       console.error("Error sending message:", error);
       const errorMessage: ChatMessage = {
         role: "ai",
@@ -94,76 +127,63 @@ const ChatbotModal: React.FC<ChatbotModalProps> = ({
       };
       setMessages((prev) => [...prev, errorMessage]);
     } finally {
+      // Dừng trạng thái loading
       setIsLoading(false);
     }
   };
 
+  // --- JSX Rendering ---
   return (
+    // Sử dụng Dialog gốc (không có trigger)
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
-      {/* Sử dụng DialogPortal và DialogOverlay gốc từ shadcn/ui.
-        Lớp Overlay đã được sửa ở Bước 1.
-      */}
+      {/* Portal để đưa modal ra ngoài cấu trúc DOM chính */}
       <DialogPrimitive.Portal>
+        {/* Lớp Overlay mờ */}
         <DialogPrimitive.Overlay
           data-slot="dialog-overlay"
           className={cn(
             "data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 fixed inset-0 z-50 bg-black/50 backdrop-blur-sm"
           )}
         />
-        {/* BẮT ĐẦU CUSTOMIZATION
-          Chúng ta tạo một div bọc bên ngoài DialogContent để tạo viền gradient
-        */}
-        <div
-          // Div này căn giữa modal và có viền gradient
-          className="fixed top-1/2 left-1/2 z-50 -translate-x-1/2 -translate-y-1/2 rounded-xl p-px bg-gradient-to-r from-blue-500 via-red-500 to-yellow-500"
-        >
+        {/* Div bọc ngoài để tạo viền Gradient */}
+        <div className="fixed top-1/2 left-1/2 z-50 -translate-x-1/2 -translate-y-1/2 rounded-xl p-px bg-gradient-to-r from-blue-500 via-red-500 to-yellow-500">
+          {/* Content của Dialog (nền card, bo góc nhỏ hơn div ngoài 1px) */}
           <DialogPrimitive.Content
-            // className gốc của shadcn được đơn giản hóa, BỎ `style` và `borderImage`
             className={cn(
               "data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95",
-              "relative z-50 flex h-[80vh] w-[90vw] max-w-2xl flex-col gap-0 overflow-hidden rounded-[calc(0.75rem-1px)] bg-card text-card-foreground shadow-lg" // 0.75rem = rounded-xl
+              "relative z-50 flex h-[80vh] w-[90vw] max-w-2xl flex-col gap-0 overflow-hidden rounded-[calc(0.75rem-1px)] bg-card text-card-foreground shadow-lg" // rounded-xl = 0.75rem
             )}
+            // Không cần {...props} ở đây vì component này không nhận props trực tiếp
           >
-            {/* 1. HEADER */}
-            <DialogHeader
-              className="
-                p-4 border-b border-border/20 text-center flex-shrink-0
-                bg-card/80 backdrop-blur-sm z-10 relative
-              "
-            >
-              <DialogTitle
-                className="
-                  text-lg font-bold
-                  bg-clip-text text-transparent
-                  bg-gradient-to-r from-blue-400 via-red-400 to-yellow-400
-                "
-              >
+            {/* 1. Header */}
+            <DialogHeader className="p-4 border-b border-border/20 text-center flex-shrink-0 bg-card/80 backdrop-blur-sm z-10 relative">
+              <DialogTitle className="text-lg font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-red-400 to-yellow-400">
                 Tri (Alden)'s AI Assistant
               </DialogTitle>
               <DialogDescription className="text-xs text-muted-foreground mt-1">
                 Powered by Gemini
               </DialogDescription>
-              {/* Đường phân cách gradient (Tùy chọn, có thể bỏ nếu đã có viền) */}
-              {/* <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-blue-500 via-red-500 to-yellow-500 opacity-60"></div> */}
             </DialogHeader>
 
-            {/* 2. KHU VỰC CHAT (Đã sửa lỗi layout) */}
+            {/* 2. Khu vực Chat (Cuộn được) */}
             <div
               ref={chatHistoryRef}
-              className="flex-1 overflow-y-auto custom-scrollbar" // <-- 'flex-1' và 'overflow-y-auto' ở đây
+              className="flex-1 overflow-y-auto custom-scrollbar" // flex-1 để chiếm không gian, overflow-y-auto để cuộn
             >
+              {/* Component hiển thị lịch sử chat */}
               <ChatHistory messages={messages} isLoading={isLoading} />
             </div>
 
-            {/* 3. KHU VỰC INPUT (Đã sửa lỗi layout) */}
+            {/* 3. Khu vực Input (Luôn ở dưới cùng) */}
             <div className="border-t border-border/20 bg-card/80 flex-shrink-0 backdrop-blur-sm relative">
+              {/* Component nhập liệu */}
               <ChatInput
                 onSendMessage={handleSendMessage}
                 isLoading={isLoading}
               />
             </div>
 
-            {/* Nút Close X mặc định của shadcn/ui (vẫn nên có) */}
+            {/* Nút Close X mặc định */}
             <DialogPrimitive.Close
               data-slot="dialog-close"
               className="ring-offset-background focus:ring-ring data-[state=open]:bg-accent data-[state=open]:text-muted-foreground absolute top-3 right-3 rounded-sm opacity-70 transition-opacity hover:opacity-100 focus:ring-2 focus:ring-offset-2 focus:outline-none disabled:pointer-events-none"
