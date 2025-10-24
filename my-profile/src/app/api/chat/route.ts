@@ -32,8 +32,7 @@ const safetySettings = [
 
 export async function POST(request: Request) {
   try {
-    // 1. Nhận message VÀ history từ frontend
-    // Frontend (ChatbotModal.tsx) SẼ được sửa để gửi cả hai
+
     const { message, history } = await request.json();
 
     if (!message) {
@@ -45,14 +44,14 @@ export async function POST(request: Request) {
 
     // 2. Sử dụng systemInstruction (Cách này là tốt nhất)
     const model = genAI.getGenerativeModel({
-      model: "gemini-2.5-pro", // Đổi "gemini-2.5-pro" thành model hợp lệ như "gemini-1.5-flash"
+      model: "gemini-2.5-flash",
       systemInstruction: SYSTEM_INSTRUCTION,
       safetySettings: safetySettings,
     });
 
     // 3. Khởi tạo chat với history nhận được (đã được format bởi frontend)
     const chat = model.startChat({
-      history: (history || []) as Content[], // Ép kiểu `history` thành `Content[]`
+      history: (history || []) as Content[], 
     });
 
     // 4. Gửi tin nhắn mới của người dùng

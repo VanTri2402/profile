@@ -17,6 +17,22 @@ const navItems = [
   { name: "Experience", href: "#experience" }, // Example: Added Experience link back
 ];
 
+const DownloadIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    className="h-5 w-5 mr-2"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+    strokeWidth={2}
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
+    />
+  </svg>
+);
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isChatOpen, setIsChatOpen] = useState(false); // State cho modal
@@ -68,6 +84,16 @@ export function Navbar() {
               <MessageCircleQuestion className="size-4" />
               Ask AI
             </Button>
+
+            <a
+              href="/cv-nguyen-huu-van-tri.pdf"
+              download
+              className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 focus:ring-offset-gray-800 transition-colors"
+              aria-label="Download Tri's CV"
+            >
+              <DownloadIcon />
+              Download CV
+            </a>
           </div>
           {/* Nút mở Chatbot cho Mobile (cần thêm logic menu mobile nếu có) */}
           <div className="md:hidden">
