@@ -1,5 +1,5 @@
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "../ui/badge";
+import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import React from "react";
 import { T_SHAPED_SKILLS } from "@/lib/data";
 
@@ -14,7 +14,7 @@ const SkillsSection = () => {
           T-Shaped Capability Profile
         </h2>
         <p className="text-lg text-muted-foreground mt-2">
-          Combines Technical & Financial depth with Systems Thinking breadth.
+          Combines Technical & Financial depth with Sysstems Thinking breadth.
         </p>
       </div>
 

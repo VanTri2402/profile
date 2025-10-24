@@ -8,30 +8,13 @@ import {
   DialogHeader,
   DialogTitle,
   DialogDescription,
-} from "@/components/ui/dialog";
+} from "../ui/dialog";
 import ChatHistory from "./ChatHistory";
 import ChatInput from "./ChatInput";
 import type { ChatMessage } from "@/lib/type"; // Đảm bảo đường dẫn đúng
 import * as DialogPrimitive from "@radix-ui/react-dialog"; // Import gốc để custom
 import { XIcon } from "lucide-react"; // Import icon close
 import { cn } from "@/lib/utils"; // Import cn utility
-
-const DownloadIcon = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    className="h-5 w-5 mr-2"
-    fill="none"
-    viewBox="0 0 24 24"
-    stroke="currentColor"
-    strokeWidth={2}
-  >
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
-    />
-  </svg>
-);
 
 interface ChatbotModalProps {
   isOpen: boolean;
