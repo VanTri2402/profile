@@ -16,19 +16,29 @@ const DisciplineSection = () => {
       className="container max-w-5xl mx-auto px-4 py-20 md:py-28 bg-muted/30 dark:bg-card/50 rounded-lg my-20"
     >
       <div className="text-center mb-12">
-        <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
+        <h2
+          className="text-3xl md:text-4xl font-bold tracking-tight"
+          data-aos="fade-in"
+          data-aos-delay="300"
+        >
           Discipline and Inner Strength
         </h2>
-        <p className="text-lg text-muted-foreground mt-2">
+        <p
+          className="text-lg text-muted-foreground mt-2"
+          data-aos="fade-in"
+          data-aos-delay="500"
+        >
           The foundation for sustainable development and long-term vision.
         </p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {DISCIPLINE_ITEMS.map((item) => (
+        {DISCIPLINE_ITEMS.map((item, index) => (
           <Card
             key={item.id}
             className="text-center bg-background/50 dark:bg-background/80"
+            data-aos="fade-up" // <-- Áp dụng hiệu ứng
+            data-aos-delay={index * 300}
           >
             <CardHeader className="items-center">
               <div className="p-3 bg-primary/10 rounded-full mb-3">
