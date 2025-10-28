@@ -65,11 +65,14 @@ const ProjectsSection = () => {
                   sizes="(max-width: 768px) 100vw, 50vw"
                 />
               </div>
-              <CardHeader className="p-2">
-                <CardTitle className="text-xl md:text-2xl ">
+              <CardHeader>
+                <CardTitle className="text-xl md:text-2xl pl-3">
                   {project.title}
                 </CardTitle>
-                <CardDescription> {project.description}</CardDescription>
+                <CardDescription className="text-right pr-3">
+                  {" "}
+                  {project.description}
+                </CardDescription>
               </CardHeader>
               <CardContent className="flex-grow space-y-4">
                 <div>

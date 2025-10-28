@@ -38,11 +38,11 @@ const HeroSection = () => {
           </p>
           <div className="flex gap-3" data-aos="fade-up" data-aos-delay="500">
             <Button asChild size="lg">
-              <Link href="#projects">See Projects</Link>
+              <Link href="#projects">Projects</Link>
             </Button>
             <Button variant={"destructive"} asChild>
               <a
-                href="/cv-nguyen-huu-van-tri.pdf"
+                href="/public/cv_VanTri.pdf"
                 download
                 className="inline-flex gap-2 items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white focus:outline-none focus:ring-offset-gray-800 transition-colors hover:backdrop-opacity-90"
                 aria-label="Download Tri's CV"
