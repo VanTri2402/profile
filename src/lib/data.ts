@@ -65,41 +65,75 @@ export interface Project {
 export const PROJECTS: Project[] = [
   {
     id: "proj1",
-    title: "Portfolio Optimization AI",
+    title: "Full-Stack Social Networking Platform",
     description:
-      "AI application to optimize investment portfolios based on Modern Portfolio Theory.",
+      "A comprehensive social media application enabling users to share posts, interact with others through likes and comments, and build their network by following other users.",
     problem:
-      "Individual investors lack tools to build optimal portfolios based on risk and expected return.",
+      "Users need a modern, responsive, and intuitive platform to connect and share content, but creating a secure and scalable social application from scratch presents significant technical challenges.",
     solution:
-      "Built a web app using Next.js, Python (Pandas, Scikit-learn) to analyze historical data, calculate covariance matrices, and suggest optimal asset weights (Efficient Frontier).",
+      "Developed a robust Full-Stack application using the T3 Stack (Next.js, TypeScript, Tailwind CSS). Leveraged Prisma as the ORM for efficient and type-safe database interactions with a PostgreSQL database. Implemented secure user authentication and management via Clerk, and integrated UploadThing for seamless image uploads. The architecture supports core social features like creating posts, commenting, liking, following users, and a real-time notification system.",
     result:
-      "Reduced portfolio standard deviation (risk) by 15% compared to random portfolios, achieving a higher Sharpe Ratio.",
-    imageUrl: "/images/portfolio-opt.png",
-    techStack: ["Next.js", "Python", "Pandas", "Scikit-learn", "MPT"],
+      "Successfully delivered a feature-rich, scalable social media MVP. The platform provides a seamless user experience for content sharing and social interaction, demonstrating strong proficiency in modern full-stack development, including authentication, database management, and building real-time features.",
+    imageUrl: "/images/social-app-demo.png",
+    techStack: [
+      "Next.js",
+      "TypeScript",
+      "Prisma",
+      "PostgreSQL",
+      "Clerk",
+      "Tailwind CSS",
+      "Uploadthing",
+    ],
     liveUrl: "#",
-    repoUrl: "#",
+    repoUrl: "https://github.com/VanTri2402/social-app",
   },
   {
     id: "proj2",
-    title: "Real-time Financial Dashboard",
+    title: "AI-Powered Travel Itinerary Planner",
     description:
-      "Dashboard displaying real-time financial data and technical analysis.",
+      "A modern web application that leverages AI to automatically generate detailed travel itineraries based on user inputs for destination, duration, and budget.",
     problem:
-      "Tracking multiple fragmented financial data sources is time-consuming and hinders quick decision-making.",
+      "Planning a trip is complex and time-consuming, requiring users to research destinations, activities, and logistics manually. Consolidating this information into a coherent plan is a significant challenge.",
     solution:
-      "Developed a Full-Stack application (Next.js, Prisma, PostgreSQL/Neon) integrating financial APIs (e.g., Finnhub, Alpha Vantage), using WebSockets for real-time price updates and technical charting (TradingView Lightweight Charts).",
+      "Built a client-side React application using Vite and Tailwind CSS. Integrated the Google Gemini API to process user prompts and generate complete, structured travel plans. Implemented Google OAuth for user authentication and utilized browser storage to save and manage users' travel histories.",
     result:
-      "Provided a real-time market overview, helping users react 30% faster to price movements.",
-    imageUrl: "/images/dashboard.png",
+      "Delivered an intelligent planning tool that drastically reduces trip planning time from hours to seconds. Users receive instant, personalized itineraries, demonstrating a strong ability to integrate third-party AI APIs into a user-friendly React application.",
+    imageUrl: "/images/travel-planner.png",
     techStack: [
-      "Next.js",
+      "React",
+      "Vite",
+      "TypeScript",
+      "Google Gemini API",
+      "Google OAuth",
+      "Tailwind CSS",
+      "React Router",
+      "Kinde",
+    ],
+    liveUrl: "#",
+    repoUrl: "https://github.com/VanTri2402/travel-planner-app",
+  },
+  {
+    id: "proj3",
+    title: "Full-Stack E-commerce Platform (MVP)",
+    description:
+      "A minimum viable product (MVP) for an e-commerce site specializing in tech gear, featuring product listings, categories, a shopping cart, and a full admin dashboard.",
+    problem:
+      "Building a secure, scalable, and manageable e-commerce website requires a complex architecture that handles user authentication, product management, and user roles (admin vs. customer).",
+    solution:
+      "Developed a full-stack Next.js 14 application using App Router. Utilized Prisma and PostgreSQL for database management. Implemented secure authentication and role-based access control (admin/user) using Kinde. Built a comprehensive admin dashboard for full CRUD (Create, Read, Update, Delete) operations on products, categories, and user permissions.",
+    result:
+      "Successfully built a functional e-commerce MVP with a clean separation of concerns between the customer-facing store and the secure admin panel. This demonstrates the ability to build complex, data-driven, full-stack applications with modern authentication and ORMs.",
+    imageUrl: "/images/tech-gear-mvp.png",
+    techStack: [
+      "Next.js 14",
       "Prisma",
       "PostgreSQL",
-      "WebSockets",
+      "Kinde Auth",
+      "TypeScript",
       "Tailwind CSS",
     ],
     liveUrl: "#",
-    repoUrl: "#",
+    repoUrl: "https://github.com/VanTri2402/tech-gear-mvp",
   },
 ];
 

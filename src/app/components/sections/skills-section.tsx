@@ -7,7 +7,7 @@ const SkillsSection = () => {
   return (
     <section
       id="skills"
-      className="container max-w-5xl mx-auto px-4 py-10 md:py-28 min-h-screen"
+      className="container max-w-7xl mx-auto px-4 py-10 md:py-28 "
     >
       <div className="text-center mb-12">
         <h2
@@ -26,27 +26,33 @@ const SkillsSection = () => {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-12 max-w-5xl mx-auto">
         {T_SHAPED_SKILLS.map((category, index) => (
-          <Card
-            key={category.id}
-            className="flex flex-col "
-            data-aos="fade-in"
+          <div
+            className="relative group"
+            data-aos="fade-up"
             data-aos-delay={index * 300}
+            key={category.id}
           >
-            <CardHeader>
-              <CardTitle>{category.title}</CardTitle>
-            </CardHeader>
-            <CardContent className="flex-grow">
-              <div className="flex flex-wrap gap-2 ">
-                {category.skills.map((skill) => (
-                  <Badge key={skill.id} variant={"secondary"}>
-                    {skill.name}
-                  </Badge>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
+            <div
+              className="absolute -inset-2 bg-gradient-to-r from-red-600  to-violet-600 rounded-xl blur-lg opacity-25 group-hover:opacity-65 transition duration-1000 group-hover:duration-200 pointer-events-none"
+              aria-hidden="true"
+            />
+            <Card className="flex flex-col h-full relative z-10 ">
+              <CardHeader>
+                <CardTitle>{category.title}</CardTitle>
+              </CardHeader>
+              <CardContent className="flex-grow">
+                <div className="flex flex-wrap gap-2 ">
+                  {category.skills.map((skill) => (
+                    <Badge key={skill.id} variant={"secondary"}>
+                      {skill.name}
+                    </Badge>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          </div>
         ))}
       </div>
     </section>

@@ -9,7 +9,7 @@ const HeroSection = () => {
   return (
     <section
       id="hero"
-      className="container max-w-5xl mx-auto px-4 h-screen min-h-[700px] flex items-center text-left"
+      className="container max-w-7xl mx-auto px-4 h-screen min-h-[700px] flex items-center text-left"
     >
       <div className="grid grid-cols-1 md:grid-cols-5 gap-12 items-center">
         <div className="md:col-span-3 space-y-6">
@@ -33,14 +33,14 @@ const HeroSection = () => {
             data-aos-delay="500"
             data-aos="fade-left"
           >
-            Tôi xây dựng các hệ thống công nghệ hiệu suất cao bằng cách áp dụng
-            tư duy phân tích kinh tế lượng và chiến lược tài chính.
+            I build high-performance technology systems by applying econometric
+            and financial strategy thinking.
           </p>
           <div className="flex gap-3" data-aos="fade-up" data-aos-delay="500">
             <Button asChild size="lg">
-              <Link href="/projects">Xem dự án</Link>
+              <Link href="#projects">See Projects</Link>
             </Button>
-            <Button variant={"secondary"} asChild>
+            <Button variant={"destructive"} asChild>
               <a
                 href="/cv-nguyen-huu-van-tri.pdf"
                 download
@@ -66,22 +66,26 @@ const HeroSection = () => {
           </div>
         </div>
         <div
-          className="md:col-span-2 flex justify-center md:justify-end"
+          className="md:col-span-2 flex justify-center md:justify-end relative group w-[400px] h-[400px]"
           data-aos="fade-left"
           data-aos-delay="500"
         >
+          <div
+            className="absolute -inset-2 bg-gradient-to-tl from-green-500 via-red-500 to-violet-700 blur-md rounded-full transition duration-1000 opacity-25 group-hover:opacity-75 group-hover:duration-300 0pointer-events-none"
+            aria-hidden="true"
+          />
           <Image
             src="/avatar.jpg" //
             alt="Ảnh chân dung chuyên nghiệp của Nguyễn Hữu Văn Trí"
-            width={400} // Giữ width/height gốc để Next.js tối ưu
-            height={400}
+            fill
             priority={true}
             className="
-                rounded-full object-cover {/* Đảm bảo ảnh cũng tròn */}
-                w-[272px] h-[272px]       {/* Size ảnh nhỏ hơn div ngoài 1 chút (do padding) */}
-                md:w-[312px] md:h-[312px]
-                lg:w-[342px] lg:h-[342px]
-                block                     {/* Đảm bảo không có khoảng trắng thừa */}
+                rounded-full object-cover 
+                w-full h-full
+                object-center
+                block                 
+                relative z-10   
+
               "
           />
         </div>

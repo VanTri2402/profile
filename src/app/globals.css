@@ -138,3 +138,359 @@
     background-position: 0% 50%;
   }
 }
+
+/*
+=================================================================
+  TASK 1: ANIMATED GLOW BORDER (OPTIMIZED UX)
+  - Hiệu ứng glow nằm BÊN NGOÀI card
+  - Multi-layer blur cho depth tốt hơn
+  - GPU-accelerated animations
+  - Reduced motion support
+=================================================================
+*/
+
+@keyframes glow-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes glow-pulse {
+  0%,
+  100% {
+    opacity: 0.8;
+    filter: blur(8px) brightness(1);
+  }
+  50% {
+    opacity: 1;
+    filter: blur(10px) brightness(1.2);
+  }
+}
+
+/* Wrapper - Container chính */
+#projects .animated-border-wrapper {
+  position: relative;
+  border-radius: var(--radius-xl);
+  isolation: isolate; /* Tạo stacking context mới */
+
+  /* Performance optimization */
+  contain: layout style paint;
+
+  /* Smooth transitions */
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease-out;
+}
+
+/* Layer 1: Base Glow (Static blur) */
+#projects .animated-border-wrapper::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: -4px; /* Lớn hơn card 4px về mọi phía */
+  border-radius: inherit;
+
+  /* Glow effect */
+  filter: blur(8px);
+
+  /* Default state: Hidden */
+  opacity: 0;
+
+  /* GPU acceleration */
+  will-change: opacity, transform;
+  transform: translateZ(0);
+
+  /* Animation (paused by default) */
+  animation: glow-spin 4s linear infinite paused;
+
+ 
+}
+
+/* Layer 2: Intense Glow (Pulsing blur) - Chỉ hiện khi hover */
+#projects .animated-border-wrapper::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: -6px; /* Lớn hơn ::before */
+  border-radius: inherit;
+
+
+
+  /* Stronger blur */
+  filter: blur(12px);
+
+  opacity: 0;
+  will-change: opacity, filter;
+  transform: translateZ(0);
+
+  animation: glow-spin 4s linear infinite paused,
+    glow-pulse 2s ease-in-out infinite paused;
+
+  transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Hover State: Kích hoạt cả 2 layers */
+#projects .animated-border-wrapper:hover::before,
+#projects .animated-border-wrapper:hover::after {
+  opacity: 1;
+  animation-play-state: running;
+}
+
+/* Điều chỉnh intensity cho ::after */
+#projects .animated-border-wrapper:hover::after {
+  opacity: 0.6;
+}
+
+/* Focus State (Accessibility) */
+#projects .animated-border-wrapper:focus-within::before {
+  opacity: 1;
+  animation-play-state: running;
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+/* Card nội dung - Đảm bảo nằm trên glow */
+#projects .animated-border-wrapper > .border-none {
+  position: relative;
+  z-index: 1;
+  height: 100%;
+
+  /* Smooth shadow transition */
+  transition: box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Thêm shadow nhẹ khi hover để tăng depth */
+#projects .animated-border-wrapper:hover > .border-none {
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* Focus System: Làm mờ các card khác */
+body:has(#projects .animated-border-wrapper:hover)
+  #projects
+  .animated-border-wrapper:not(:hover) {
+  opacity: 0.4;
+  transform: scale(0.98);
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  #projects .animated-border-wrapper::before,
+  #projects .animated-border-wrapper::after {
+    animation: none !important;
+  }
+
+  #projects .animated-border-wrapper:hover::before {
+    opacity: 0.8;
+  }
+
+  #projects .animated-border-wrapper:hover::after {
+    opacity: 0;
+  }
+}
+
+/*
+=================================================================
+  TASK 2: HORIZONTAL SCROLL (OPTIMIZED UX)
+  - Snap scrolling cho UX tốt hơn
+  - Momentum scrolling
+  - Gradient fade indicators
+  - Hidden scrollbar với visual cues
+=================================================================
+*/
+
+/* Grid Container - Mobile First (< 768px) */
+#projects .grid {
+  position: relative;
+  display: flex;
+  overflow-x: auto;
+  overflow-y: hidden;
+
+  /* Smooth scrolling */
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+
+  /* Snap scrolling */
+  scroll-snap-type: x mandatory;
+  scroll-padding: 1rem;
+
+  /* Spacing */
+  gap: 1.5rem;
+  padding: 1rem;
+  padding-bottom: 2rem;
+
+  /* Hide scrollbar */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+#projects .grid::-webkit-scrollbar {
+  display: none;
+}
+
+/* Gradient Fade Indicators (Left & Right) */
+#projects .grid::before,
+#projects .grid::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 2rem;
+  width: 3rem;
+  z-index: 2;
+  pointer-events: none;
+
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+/* Left fade */
+#projects .grid::before {
+  left: 0;
+  background: linear-gradient(to right, var(--background) 0%, transparent 100%);
+}
+
+/* Right fade */
+#projects .grid::after {
+  right: 0;
+  background: linear-gradient(to left, var(--background) 0%, transparent 100%);
+}
+
+/* Show fades when scrollable */
+#projects .grid[data-scrollable="true"]::before,
+#projects .grid[data-scrollable="true"]::after {
+  opacity: 1;
+}
+
+/* Card trong scroll container */
+#projects .grid > .animated-border-wrapper {
+  flex-shrink: 0;
+
+  /* Card sizing */
+  width: 85vw;
+  max-width: 420px;
+  min-width: 300px;
+
+  /* Snap alignment */
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+
+  /* Performance */
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+/* First card padding */
+#projects .grid > .animated-border-wrapper:first-child {
+  scroll-snap-align: start;
+}
+
+/* Last card padding */
+#projects .grid > .animated-border-wrapper:last-child {
+  scroll-snap-align: end;
+}
+
+/* Tablet breakpoint (640px) - Điều chỉnh card size */
+@media (min-width: 640px) {
+  #projects .grid > .animated-border-wrapper {
+    width: 70vw;
+    max-width: 450px;
+  }
+
+  #projects .grid {
+    gap: 2rem;
+  }
+}
+
+/* Desktop breakpoint (768px) - Chuyển sang Grid layout */
+@media (min-width: 768px) {
+  #projects .grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    overflow-x: visible;
+    overflow-y: visible;
+
+    scroll-snap-type: none;
+    padding: 0;
+    padding-bottom: 0;
+
+    gap: 2.5rem;
+  }
+
+  /* Remove fade indicators */
+  #projects .grid::before,
+  #projects .grid::after {
+    display: none;
+  }
+
+  /* Reset card sizing */
+  #projects .grid > .animated-border-wrapper {
+    width: auto;
+    max-width: none;
+    min-width: 0;
+    scroll-snap-align: none;
+  }
+}
+
+/* Large desktop (1024px) - Tăng gap */
+@media (min-width: 1024px) {
+  #projects .grid {
+    gap: 3rem;
+  }
+}
+
+/*
+=================================================================
+  HIỆU ỨNG BỔ SUNG (GIỮ NGUYÊN)
+=================================================================
+*/
+
+/* HIỆU ỨNG 2: DISCIPLINE ICON (LEVEL 2 FALLBACK) */
+@keyframes draw-glyph {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes breathe-glyph {
+  0%,
+  100% {
+    opacity: 0.5;
+    stroke-width: 1.5;
+  }
+  50% {
+    opacity: 1;
+    stroke-width: 2.2;
+  }
+}
+.animated-glyph path {
+  fill: none;
+  stroke: #ef4444;
+  stroke-width: 1.5;
+  transition: stroke 0.3s ease, stroke-width 0.3s ease;
+}
+.aos-animate .animated-glyph path {
+  animation: draw-glyph 2s ease-out forwards,
+    breathe-glyph 3s ease-in-out infinite 2.2s;
+}
+.glyph-container:hover .animated-glyph path {
+  stroke: #8b5cf6;
+  stroke-width: 2.5;
+  animation-play-state: paused;
+  opacity: 1;
+}
+.glyph-container .glyph-title {
+  transition: color 0.3s ease;
+}
+.glyph-container:hover .glyph-title {
+  color: #8b5cf6;
+}
+
+/* HIỆU ỨNG 3: TIMELINE (EXPERIENCE SECTION) */
+[data-aos="grow-timeline"] {
+  transform: scaleY(0);
+  transform-origin: top;
+  transition-property: transform;
+}
+[data-aos="grow-timeline"].aos-animate {
+  transform: scaleY(1);
+}

@@ -1,3 +1,4 @@
+// src/app/components/sections/projects-section.tsx (Đã cập nhật)
 import { PROJECTS } from "@/lib/data";
 import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
@@ -13,103 +14,125 @@ import { ExternalLink, Github } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import { cn } from "@/lib/utils"; // <-- 1. Import cn
 
 const ProjectsSection = () => {
+  // Logic lấy projectsToShow (nếu có) giữ nguyên
+  const projectsToShow = PROJECTS.slice(0, 4);
+
   return (
     <section
       id="projects"
       className="container max-w-5xl mx-auto px-4 py-20 md:py-28"
     >
-      <div className="text-center mb-12" data-aos="fade-left">
-        <h2
-          className="text-3xl md:text-4xl font-bold tracking-tight"
-          data-aos-delay="300"
-        >
+      {/* ... Header section giữ nguyên ... */}
+      <div className="text-center mb-12" data-aos="fade-down">
+        <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
           Projects & Research
         </h2>
-        <p className="text-lg text-muted-foreground mt-2" data-aos-delay="500">
+        <p className="text-lg text-muted-foreground mt-2">
           Demonstrate capacity through real projects.
         </p>
       </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        {PROJECTS.map((project, index) => (
-          <Card
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+        {/* 4. Tăng gap (ví dụ: gap-10) */}
+        {projectsToShow.map((project, index) => (
+          // 1. Thẻ Bọc Ngoài (Wrapper) - Đặt ngữ cảnh `relative` và `group`
+          <div
             key={project.id}
-            className="flex flex-col overflow-hidden"
-            data-aos-delay={index * 300}
+            className="animated-border-wrapper border-none hover:border z-10 relative group p-[2px] rounded-xl h-full transition-shadow duration-300" // Đặt p-[2px] làm độ dày border, và rounded-xl
             data-aos="fade-up"
+            data-aos-delay={index * 100}
           >
-            <div className="relative w-full h-48 md:h-56">
-              <Image
-                src={project.imageUrl}
-                alt={`${project.title}`}
-                fill
-                style={{ objectFit: "cover" }}
-                sizes="(max-width: 768px) 100vw , (max-width : 1200px) 50vw , 33vw"
-                className="bg-muted"
-              ></Image>
-            </div>
-            <CardHeader>
-              <CardTitle className="text-xl md:text-2xl ">
-                {project.title}
-              </CardTitle>
-              <CardDescription> {project.description}</CardDescription>
-            </CardHeader>
-            <CardContent className="flex-grow space-y-4">
-              <div>
-                <h4 className="font-semibold mb-1">Problem: </h4>
-                <p className="text-sm text-muted-foreground ">
-                  {project.solution}
-                </p>
-              </div>
-              <div>
-                <h4 className="font-semibold mb-1">Solution:</h4>
-                <p className="text-sm text-muted-foreground">
-                  {project.solution}
-                </p>
-              </div>
-              <div>
-                <h4 className="font-semibold mb-1">Result:</h4>
-                <p className="text-sm text-muted-foreground">
-                  {project.result}
-                </p>
-              </div>
-              <div className="flex flex-wrap gap-2 pt-2">
-                {project.techStack.map((tech) => (
-                  <Badge key={tech} variant="secondary">
-                    {tech}
-                  </Badge>
-                ))}
-              </div>
-            </CardContent>
-            <CardFooter className="flex justify-start gap-3 pt-4">
-              {" "}
-              {/* Ensure footer aligns items */}
-              {project.liveUrl && project.liveUrl !== "#" && (
-                <Button variant="outline" size="sm" asChild>
-                  <Link
-                    href={project.liveUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <ExternalLink className="mr-2 h-4 w-4" /> Live Demo
-                  </Link>
-                </Button>
+            {/* 2. Lớp Border Gradient (Absolute Background) */}
+            {/* Ban đầu: ẨN, khi hover: HIỆN gradient. Sử dụng ::before thay vì thẻ div trực tiếp để sạch code hơn, nhưng cách này vẫn hoạt động */}
+            <div
+              className={cn(
+                "absolute inset-0 -z-10 rounded-xl", // rounded-xl phải khớp với thẻ cha
+                "bg-gradient-to-r from-transparent to-transparent", // Gradient ban đầu trong suốt (ẨN)
+                "group-hover:from-indigo-500 group-hover:to-pink-500", // Gradient khi HOVER
+                "group-hover:opacity-100 opacity-0 transition-opacity duration-300" // Hiệu ứng mượt mà
               )}
-              {project.repoUrl && project.repoUrl !== "#" && (
-                <Button variant="ghost" size="sm" asChild>
-                  <Link
-                    href={project.repoUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <Github className="mr-2 h-4 w-4" /> Source Code
-                  </Link>
-                </Button>
+            ></div>
+
+            {/* 3. Card bên trong (Card nội dung) */}
+            <Card
+              className={cn(
+                "flex flex-col overflow-hidden h-full bg-white dark:bg-card", // Thêm màu nền để che gradient
+                "rounded-[10px] border-none" // Bo góc nhỏ hơn thẻ cha, loại bỏ border gốc
               )}
-            </CardFooter>
-          </Card>
+            >
+              {/* --- Nội dung Card giữ nguyên --- */}
+              <div className="relative w-full h-48 md:h-56">
+                <Image
+                  src={project.imageUrl}
+                  alt={`${project.title}`}
+                  fill
+                  className="object-cover bg-muted object-center"
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                />
+              </div>
+              <CardHeader>
+                <CardTitle className="text-xl md:text-2xl p-4">
+                  {project.title}
+                </CardTitle>
+                <CardDescription> {project.description}</CardDescription>
+              </CardHeader>
+              <CardContent className="flex-grow space-y-4">
+                {/* ... (Problem, Solution, Result, TechStack) ... */}
+                <div>
+                  <h4 className="font-semibold mb-1">Problem: </h4>
+                  <p className="text-sm text-muted-foreground ">
+                    {project.problem}
+                  </p>
+                </div>
+                <div>
+                  <h4 className="font-semibold mb-1">Solution:</h4>
+                  <p className="text-sm text-muted-foreground">
+                    {project.solution}
+                  </p>
+                </div>
+                <div>
+                  <h4 className="font-semibold mb-1">Result:</h4>
+                  <p className="text-sm text-muted-foreground">
+                    {project.result}
+                  </p>
+                </div>
+                <div className="flex flex-wrap gap-2 pt-2">
+                  {project.techStack.map((tech) => (
+                    <Badge key={tech} variant="secondary">
+                      {tech}
+                    </Badge>
+                  ))}
+                </div>
+              </CardContent>
+              <CardFooter className="flex justify-start gap-3 pt-4">
+                {/* Ensure footer aligns items */}
+                {project.liveUrl && project.liveUrl !== "#" && (
+                  <Button variant="outline" size="sm" asChild>
+                    <Link
+                      href={project.liveUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <ExternalLink className="mr-2 h-4 w-4" /> Live Demo
+                    </Link>
+                  </Button>
+                )}
+                {project.repoUrl && project.repoUrl !== "#" && (
+                  <Button variant="ghost" size="sm" asChild>
+                    <Link
+                      href={project.repoUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <Github className="mr-2 h-4 w-4" /> Source Code
+                    </Link>
+                  </Button>
+                )}
+              </CardFooter>
+            </Card>
+          </div>
         ))}
       </div>
     </section>

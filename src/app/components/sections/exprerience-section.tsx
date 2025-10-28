@@ -36,7 +36,7 @@ export default function ExperienceSection() {
               "md:flex md:items-start",
               index % 2 === 0 ? "md:flex-row-reverse" : ""
             )}
-            data-aos="fade-left"
+            data-aos="grow-timeline"
             data-aos-delay="500"
           >
             {/* Timeline Dot (Desktop only) */}

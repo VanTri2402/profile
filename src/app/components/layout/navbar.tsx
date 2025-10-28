@@ -7,6 +7,7 @@ import { Button } from "../ui/button"; // Import Button
 import ChatbotModal from "../chatbot/ChatbotModal"; // Import Modal
 import { MessageCircleQuestion } from "lucide-react"; // Example Icon
 import { Separator } from "../ui/separator";
+import { ModeToggle } from "../ui/modeToggle";
 
 const navItems = [
   { name: "About", href: "#hero" },
@@ -37,7 +38,7 @@ export function Navbar() {
           isScrolled
             ? "bg-background/80 backdrop-blur-sm shadow-md"
             : "bg-transparent"
-        }`}
+        } `}
         data-aos="fade-in"
         data-aos-delay="300"
       >
@@ -57,6 +58,7 @@ export function Navbar() {
                 {item.name}
               </Link>
             ))}
+            <ModeToggle />
             <Button
               variant="outline"
               size="sm"
@@ -78,9 +80,9 @@ export function Navbar() {
             </Button>
           </div>
         </nav>
+        <Separator />
       </header>
       <ChatbotModal isOpen={isChatOpen} onOpenChange={setIsChatOpen} />
-      <Separator />
     </>
   );
 }
