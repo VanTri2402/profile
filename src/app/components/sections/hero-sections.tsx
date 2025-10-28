@@ -75,7 +75,7 @@ const HeroSection = () => {
             aria-hidden="true"
           />
           <Image
-            src="/avatar.jpg" //
+            src="/avatar.png" //
             alt="Ảnh chân dung chuyên nghiệp của Nguyễn Hữu Văn Trí"
             fill
             priority={true}

@@ -7,7 +7,7 @@ import { Footer } from "./components/layout/footer";
 import "aos/dist/aos.css";
 import { AOSInitializer } from "./components/AOSInitializer";
 import { ThemeProvider } from "./components/theme-provider";
-
+import { SpeedInsights } from "@vercel/speed-insights/next";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -37,6 +37,7 @@ export default function RootLayout({
           <main>{children}</main>
           <Footer />
         </ThemeProvider>
+        <SpeedInsights />
       </body>
     </html>
   );
