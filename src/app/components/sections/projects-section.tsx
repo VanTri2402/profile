@@ -52,7 +52,7 @@ const ProjectsSection = () => {
 
             <Card
               className={cn(
-                "flex flex-col overflow-hidden h-full bg-white dark:bg-card", // Thêm màu nền để che gradient
+                "flex flex-col overflow-hidden h-full bg-white dark:bg-card pt-0", // Thêm màu nền để che gradient
                 "rounded-[10px] border-none" // Bo góc nhỏ hơn thẻ cha, loại bỏ border gốc
               )}
             >
@@ -61,12 +61,12 @@ const ProjectsSection = () => {
                   src={project.imageUrl}
                   alt={`${project.title}`}
                   fill
-                  className="object-cover bg-muted object-center"
+                  className="object-cover bg-muted object-top "
                   sizes="(max-width: 768px) 100vw, 50vw"
                 />
               </div>
-              <CardHeader>
-                <CardTitle className="text-xl md:text-2xl p-4">
+              <CardHeader className="p-2">
+                <CardTitle className="text-xl md:text-2xl ">
                   {project.title}
                 </CardTitle>
                 <CardDescription> {project.description}</CardDescription>

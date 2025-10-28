@@ -75,7 +75,7 @@ export const PROJECTS: Project[] = [
       "Đã phát triển một ứng dụng Full-Stack mạnh mẽ sử dụng T3 Stack (Next.js, TypeScript, Tailwind CSS). Tận dụng Prisma làm ORM cho các tương tác cơ sở dữ liệu hiệu quả và an toàn kiểu với cơ sở dữ liệu PostgreSQL. Triển khai xác thực và quản lý người dùng an toàn qua Clerk, và tích hợp UploadThing để tải lên hình ảnh liền mạch. Kiến trúc hỗ trợ các tính năng xã hội cốt lõi như tạo bài đăng, bình luận, thích, theo dõi người dùng và hệ thống thông báo thời gian thực.",
     result:
       "Đã giao thành công một MVP mạng xã hội có nhiều tính năng, có khả năng mở rộng. Nền tảng cung cấp trải nghiệm người dùng liền mạch để chia sẻ nội dung và tương tác xã hội, thể hiện trình độ thành thạo vững chắc trong phát triển full-stack hiện đại, bao gồm xác thực, quản lý cơ sở dữ liệu và xây dựng các tính năng thời gian thực.",
-    imageUrl: "/images/social.png",
+    imageUrl: "/images/social.jpg",
     techStack: [
       "Next.js",
       "TypeScript",
@@ -99,7 +99,7 @@ export const PROJECTS: Project[] = [
       "Xây dựng một ứng dụng React phía client sử dụng Vite và Tailwind CSS. Tích hợp Google Gemini API để xử lý lời nhắc của người dùng và tạo ra các kế hoạch du lịch hoàn chỉnh, có cấu trúc. Triển khai Google OAuth để xác thực người dùng và sử dụng bộ nhớ trình duyệt để lưu và quản lý lịch sử du lịch của người dùng.",
     result:
       "Cung cấp một công cụ lập kế hoạch thông minh giúp giảm đáng kể thời gian lập kế hoạch chuyến đi từ hàng giờ xuống còn vài giây. Người dùng nhận được lịch trình tức thì, được cá nhân hóa, thể hiện khả năng tích hợp mạnh mẽ các API AI của bên thứ ba vào một ứng dụng React thân thiện với người dùng.",
-    imageUrl: "/images/travel-planner.png",
+    imageUrl: "/images/travel.jpg",
     techStack: [
       "React",
       "Vite",
@@ -124,7 +124,7 @@ export const PROJECTS: Project[] = [
       "Phát triển một ứng dụng Next.js 14 full-stack sử dụng App Router. Sử dụng Prisma và PostgreSQL để quản lý cơ sở dữ liệu. Triển khai xác thực an toàn và kiểm soát truy cập dựa trên vai trò (admin/user) bằng Kinde. Xây dựng một bảng điều khiển quản trị toàn diện cho các hoạt động CRUD (Tạo, Đọc, Cập nhật, Xóa) đầy đủ trên sản phẩm, danh mục và quyền của người dùng.",
     result:
       "Đã xây dựng thành công một MVP thương mại điện tử chức năng với sự phân tách rõ ràng giữa cửa hàng面向khách hàng và bảng điều khiển quản trị an toàn. Điều này thể hiện khả năng xây dựng các ứng dụng full-stack phức tạp, dựa trên dữ liệu với xác thực và ORM hiện đại.",
-    imageUrl: "/images/techStore.png",
+    imageUrl: "/images/techStore.jpg",
     techStack: [
       "Next.js 14",
       "Prisma",
@@ -150,21 +150,21 @@ export const DISCIPLINE_ITEMS: DisciplineItem[] = [
     id: "vovinam",
     title: "Vovinam Việt Võ Đạo",
     description:
-      "Rèn luyện kỷ luật cá nhân, sức bền và sự tập trung qua nhiều năm luyện tập võ thuật.",
+      "Rèn luyện kỷ luật cá nhân, sức bền và sự tập trung qua hơn 11 năm luyện tập võ thuật. Luôn ưu tiên sức khỏe và hiện tại đang đi dạy võ lúc 17 tuổi",
     icon: "Swords",
   },
   {
     id: "hoangphap",
     title: "Thiền & Công tác Tình nguyện",
     description:
-      "Xây dựng sự bình an nội tâm, kỷ luật (thức dậy lúc 5 giờ sáng) và tầm nhìn dài hạn thông qua các hoạt động tại Chùa Hoằng Pháp.",
+      "Xây dựng sự bình an nội tâm, kỷ luật và tầm nhìn dài hạn thông qua các hoạt động tại Chùa Hoằng Pháp. Tích cực tham gia các hoạt động thiện nguyện làm công quả cho chùa và những nơi khác",
     icon: "Sunrise",
   },
   {
     id: "finance_club",
     title: "Hoạt động Kinh tế/Tài chính",
     description:
-      "Phát triển kỹ năng phân tích thị trường và nghiên cứu lịch sử tài chính ...",
+      "Phát triển kỹ năng phân tích thị trường và nghiên cứu lịch sử tài chính.",
     icon: "Activity",
   },
 ];
