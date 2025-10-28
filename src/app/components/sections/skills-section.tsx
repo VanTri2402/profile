@@ -15,14 +15,15 @@ const SkillsSection = () => {
           data-aos="fade-left"
           data-aos-delay="300"
         >
-          T-Shaped Capability Profile
+          Hồ sơ năng lực & Kỹ năng mềm
         </h2>
         <p
           className="text-lg text-muted-foreground mt-2"
           data-aos="fade-right"
           data-aos-delay="500"
         >
-          Combines Technical & Financial depth with Sysstems Thinking breadth.
+          Kết hợp chiều sâu về Kỹ thuật và Tài chính với chiều rộng về Tư duy Hệ
+          thống.
         </p>
       </div>
 

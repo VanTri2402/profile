@@ -33,8 +33,8 @@ const HeroSection = () => {
             data-aos-delay="500"
             data-aos="fade-left"
           >
-            I build high-performance technology systems by applying econometric
-            and financial strategy thinking.
+            Tôi xây dựng các hệ thống công nghệ hiệu suất cao bằng cách áp dụng
+            tư duy chiến lược tài chính và kinh tế lượng.
           </p>
           <div className="flex gap-3" data-aos="fade-up" data-aos-delay="500">
             <Button asChild size="lg">

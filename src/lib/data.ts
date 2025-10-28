@@ -13,21 +13,22 @@ export interface Skill {
 export const T_SHAPED_SKILLS: SkillCategory[] = [
   {
     id: "tech_depth",
-    title: "Full-Stack Development & AI (Depth)",
+    title: "Phát triển Full-Stack ",
     skills: [
       { id: "s1", name: "Next.js" },
       { id: "s2", name: "TypeScript" },
       { id: "s3", name: "Node.js" },
-      { id: "s4", name: "Python (Pandas, Scikit-learn)" },
       { id: "s5", name: "Prisma" },
       { id: "s6", name: "Tailwind CSS" },
-      { id: "s7", name: "Docker" },
-      { id: "s8", name: "LangChain" },
+      { id: "s7", name: "ReactJs" },
+      { id: "s8", name: "Shadcn UI" },
+      { id: "s9", name: "MongoDb" },
+      { id: "s10", name: "Express Js" },
     ],
   },
   {
     id: "finance_depth",
-    title: "Financial & Economic Analysis (Depth)",
+    title: "Phân tích Tài chính & Kinh tế ",
     skills: [
       { id: "f1", name: "Financial Statement Analysis (FSA)" },
       { id: "f2", name: "Business Valuation (WACC, DCF)" },
@@ -38,7 +39,7 @@ export const T_SHAPED_SKILLS: SkillCategory[] = [
   },
   {
     id: "breadth",
-    title: "Systems Thinking & Foundations (Breadth)",
+    title: "Tư duy Hệ thống & Nền tảng ",
     skills: [
       { id: "b1", name: "Systems Thinking" },
       { id: "b2", name: "Mental Models" },
@@ -65,16 +66,16 @@ export interface Project {
 export const PROJECTS: Project[] = [
   {
     id: "proj1",
-    title: "Full-Stack Social Networking Platform",
+    title: "Nền tảng Mạng xã hội Full-Stack",
     description:
-      "A comprehensive social media application enabling users to share posts, interact with others through likes and comments, and build their network by following other users.",
+      "Một ứng dụng mạng xã hội toàn diện cho phép người dùng chia sẻ bài đăng, tương tác với người khác qua lượt thích và bình luận, và xây dựng mạng lưới của họ bằng cách theo dõi người dùng khác.",
     problem:
-      "Users need a modern, responsive, and intuitive platform to connect and share content, but creating a secure and scalable social application from scratch presents significant technical challenges.",
+      "Người dùng cần một nền tảng hiện đại, đáp ứng nhanh và trực quan để kết nối và chia sẻ nội dung, nhưng việc tạo ra một ứng dụng xã hội an toàn và có khả năng mở rộng từ đầu đặt ra những thách thức kỹ thuật đáng kể.",
     solution:
-      "Developed a robust Full-Stack application using the T3 Stack (Next.js, TypeScript, Tailwind CSS). Leveraged Prisma as the ORM for efficient and type-safe database interactions with a PostgreSQL database. Implemented secure user authentication and management via Clerk, and integrated UploadThing for seamless image uploads. The architecture supports core social features like creating posts, commenting, liking, following users, and a real-time notification system.",
+      "Đã phát triển một ứng dụng Full-Stack mạnh mẽ sử dụng T3 Stack (Next.js, TypeScript, Tailwind CSS). Tận dụng Prisma làm ORM cho các tương tác cơ sở dữ liệu hiệu quả và an toàn kiểu với cơ sở dữ liệu PostgreSQL. Triển khai xác thực và quản lý người dùng an toàn qua Clerk, và tích hợp UploadThing để tải lên hình ảnh liền mạch. Kiến trúc hỗ trợ các tính năng xã hội cốt lõi như tạo bài đăng, bình luận, thích, theo dõi người dùng và hệ thống thông báo thời gian thực.",
     result:
-      "Successfully delivered a feature-rich, scalable social media MVP. The platform provides a seamless user experience for content sharing and social interaction, demonstrating strong proficiency in modern full-stack development, including authentication, database management, and building real-time features.",
-    imageUrl: "/images/social-app-demo.png",
+      "Đã giao thành công một MVP mạng xã hội có nhiều tính năng, có khả năng mở rộng. Nền tảng cung cấp trải nghiệm người dùng liền mạch để chia sẻ nội dung và tương tác xã hội, thể hiện trình độ thành thạo vững chắc trong phát triển full-stack hiện đại, bao gồm xác thực, quản lý cơ sở dữ liệu và xây dựng các tính năng thời gian thực.",
+    imageUrl: "/images/social.png",
     techStack: [
       "Next.js",
       "TypeScript",
@@ -89,15 +90,15 @@ export const PROJECTS: Project[] = [
   },
   {
     id: "proj2",
-    title: "AI-Powered Travel Itinerary Planner",
+    title: "Công cụ Lập kế hoạch Hành trình Du lịch bằng AI",
     description:
-      "A modern web application that leverages AI to automatically generate detailed travel itineraries based on user inputs for destination, duration, and budget.",
+      "Một ứng dụng web hiện đại tận dụng AI để tự động tạo ra các lịch trình du lịch chi tiết dựa trên thông tin đầu vào của người dùng về điểm đến, thời gian và ngân sách.",
     problem:
-      "Planning a trip is complex and time-consuming, requiring users to research destinations, activities, and logistics manually. Consolidating this information into a coherent plan is a significant challenge.",
+      "Việc lập kế hoạch cho một chuyến đi rất phức tạp và tốn thời gian, yêu cầu người dùng phải nghiên cứu thủ công về điểm đến, hoạt động và hậu cần. Việc tổng hợp thông tin này thành một kế hoạch mạch lạc là một thách thức đáng kể.",
     solution:
-      "Built a client-side React application using Vite and Tailwind CSS. Integrated the Google Gemini API to process user prompts and generate complete, structured travel plans. Implemented Google OAuth for user authentication and utilized browser storage to save and manage users' travel histories.",
+      "Xây dựng một ứng dụng React phía client sử dụng Vite và Tailwind CSS. Tích hợp Google Gemini API để xử lý lời nhắc của người dùng và tạo ra các kế hoạch du lịch hoàn chỉnh, có cấu trúc. Triển khai Google OAuth để xác thực người dùng và sử dụng bộ nhớ trình duyệt để lưu và quản lý lịch sử du lịch của người dùng.",
     result:
-      "Delivered an intelligent planning tool that drastically reduces trip planning time from hours to seconds. Users receive instant, personalized itineraries, demonstrating a strong ability to integrate third-party AI APIs into a user-friendly React application.",
+      "Cung cấp một công cụ lập kế hoạch thông minh giúp giảm đáng kể thời gian lập kế hoạch chuyến đi từ hàng giờ xuống còn vài giây. Người dùng nhận được lịch trình tức thì, được cá nhân hóa, thể hiện khả năng tích hợp mạnh mẽ các API AI của bên thứ ba vào một ứng dụng React thân thiện với người dùng.",
     imageUrl: "/images/travel-planner.png",
     techStack: [
       "React",
@@ -110,20 +111,20 @@ export const PROJECTS: Project[] = [
       "Kinde",
     ],
     liveUrl: "#",
-    repoUrl: "https://github.com/VanTri2402/travel-planner-app",
+    repoUrl: "https://github.com/VanTri2402/travel",
   },
   {
     id: "proj3",
-    title: "Full-Stack E-commerce Platform (MVP)",
+    title: "Nền tảng Thương mại Điện tử Full-Stack (MVP)",
     description:
-      "A minimum viable product (MVP) for an e-commerce site specializing in tech gear, featuring product listings, categories, a shopping cart, and a full admin dashboard.",
+      "Một sản phẩm khả dụng tối thiểu (MVP) cho một trang web thương mại điện tử chuyên về thiết bị công nghệ, bao gồm danh sách sản phẩm, danh mục, giỏ hàng và bảng điều khiển quản trị đầy đủ.",
     problem:
-      "Building a secure, scalable, and manageable e-commerce website requires a complex architecture that handles user authentication, product management, and user roles (admin vs. customer).",
+      "Xây dựng một trang web thương mại điện tử an toàn, có khả năng mở rộng và dễ quản lý đòi hỏi một kiến trúc phức tạp xử lý xác thực người dùng, quản lý sản phẩm và vai trò người dùng (quản trị viên so với khách hàng).",
     solution:
-      "Developed a full-stack Next.js 14 application using App Router. Utilized Prisma and PostgreSQL for database management. Implemented secure authentication and role-based access control (admin/user) using Kinde. Built a comprehensive admin dashboard for full CRUD (Create, Read, Update, Delete) operations on products, categories, and user permissions.",
+      "Phát triển một ứng dụng Next.js 14 full-stack sử dụng App Router. Sử dụng Prisma và PostgreSQL để quản lý cơ sở dữ liệu. Triển khai xác thực an toàn và kiểm soát truy cập dựa trên vai trò (admin/user) bằng Kinde. Xây dựng một bảng điều khiển quản trị toàn diện cho các hoạt động CRUD (Tạo, Đọc, Cập nhật, Xóa) đầy đủ trên sản phẩm, danh mục và quyền của người dùng.",
     result:
-      "Successfully built a functional e-commerce MVP with a clean separation of concerns between the customer-facing store and the secure admin panel. This demonstrates the ability to build complex, data-driven, full-stack applications with modern authentication and ORMs.",
-    imageUrl: "/images/tech-gear-mvp.png",
+      "Đã xây dựng thành công một MVP thương mại điện tử chức năng với sự phân tách rõ ràng giữa cửa hàng面向khách hàng và bảng điều khiển quản trị an toàn. Điều này thể hiện khả năng xây dựng các ứng dụng full-stack phức tạp, dựa trên dữ liệu với xác thực và ORM hiện đại.",
+    imageUrl: "/images/techStore.png",
     techStack: [
       "Next.js 14",
       "Prisma",
@@ -149,21 +150,21 @@ export const DISCIPLINE_ITEMS: DisciplineItem[] = [
     id: "vovinam",
     title: "Vovinam Việt Võ Đạo",
     description:
-      "Cultivated personal discipline, endurance, and focus through years of martial arts practice.",
+      "Rèn luyện kỷ luật cá nhân, sức bền và sự tập trung qua nhiều năm luyện tập võ thuật.",
     icon: "Swords",
   },
   {
     id: "hoangphap",
-    title: "Meditation & Volunteer Work",
+    title: "Thiền & Công tác Tình nguyện",
     description:
-      "Built inner peace, discipline (waking up at 5 AM), and a long-term perspective through activities at Hoang Phap Pagoda.",
+      "Xây dựng sự bình an nội tâm, kỷ luật (thức dậy lúc 5 giờ sáng) và tầm nhìn dài hạn thông qua các hoạt động tại Chùa Hoằng Pháp.",
     icon: "Sunrise",
   },
   {
     id: "finance_club",
-    title: "Economic/Financial Activities",
+    title: "Hoạt động Kinh tế/Tài chính",
     description:
-      "Developed analytical and leadership skills through competitions and club activities...",
+      "Phát triển kỹ năng phân tích thị trường và nghiên cứu lịch sử tài chính ...",
     icon: "Activity",
   },
 ];
@@ -179,24 +180,24 @@ export interface ExperienceItem {
 export const EXPERIENCES: ExperienceItem[] = [
   {
     id: "exp2",
-    role: "Financial Analyst Intern",
-    company: "ABC Corporation (Example)",
+    role: "Thực tập sinh Phân tích Tài chính",
+    company: "Tập đoàn ABC (Ví dụ)",
     period: "Jun 2024 - Sep 2024",
     description: [
-      "Supported the development of DCF valuation models for listed companies.",
-      "Analyzed quarterly financial statements to identify key trends and risks.",
-      "Prepared presentation materials for investment review meetings.",
+      "Hỗ trợ phát triển các mô hình định giá DCF cho các công ty niêm yết.",
+      "Phân tích báo cáo tài chính hàng quý để xác định các xu hướng và rủi ro chính.",
+      "Chuẩn bị tài liệu thuyết trình cho các cuộc họp đánh giá đầu tư.",
     ],
   },
   {
     id: "exp1",
-    role: "Junior Full-Stack Developer",
-    company: "Personal Project XYZ (Example)",
+    role: "Lập trình viên Full-Stack Cơ bản",
+    company: "Dự án Cá nhân XYZ (Ví dụ)",
     period: "Jan 2024 - May 2024",
     description: [
-      "Developed frontend UI using Next.js and Tailwind CSS.",
-      "Built backend APIs with Node.js and Prisma, connected to PostgreSQL.",
-      "Deployed the application to Vercel with basic CI/CD setup.",
+      "Phát triển giao diện người dùng frontend bằng Next.js và Tailwind CSS.",
+      "Xây dựng các API backend với Node.js và Prisma, kết nối với PostgreSQL.",
+      "Triển khai ứng dụng lên Vercel với thiết lập CI/CD cơ bản.",
     ],
   },
 ];

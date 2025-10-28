@@ -42,11 +42,9 @@ export function Navbar() {
         data-aos="fade-in"
         data-aos-delay="300"
       >
-        <nav className="container max-w-5xl mx-auto p-4 flex justify-between items-center ">
-          <Link href="#hero" className="font-bold text-xl">
+        <nav className="container max-w-6xl mx-auto p-4 flex justify-between items-center ">
+          <Link href="#hero" className="font-bold text-xl ">
             Nguyen Huu Van Tri
-            <br />
-            <span className="text-blue-500">Alden</span>
           </Link>
           <div className="hidden md:flex items-center space-x-6">
             {navItems.map((item) => (

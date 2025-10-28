@@ -14,10 +14,10 @@ export default function ExperienceSection() {
           className="text-3xl md:text-4xl font-bold tracking-tight"
           data-aos-delay="300"
         >
-          Career Journey
+          Hành trình sự nghiệp
         </h2>
         <p className="text-lg text-muted-foreground mt-2" data-aos-delay="400">
-          Key milestones and contributions.
+          Những cột mốc quan trọng và đóng góp.
         </p>
       </div>
 

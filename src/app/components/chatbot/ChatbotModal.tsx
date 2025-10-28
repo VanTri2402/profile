@@ -1,4 +1,4 @@
-// src/app/components/chatbot/ChatbotModal.tsx
+// src/app/components/chatbot/ChatbotModal.tsx (Cập nhật câu chào sang tiếng Việt)
 "use client";
 
 import React, { useState, useEffect, useRef, useCallback } from "react";
@@ -28,7 +28,8 @@ const ChatbotModal: React.FC<ChatbotModalProps> = ({
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
       role: "ai",
-      text: "Hello! I am an AI assistant representing Nguyen Huu Van Tri (Alden). Feel free to ask me about his skills, projects, or experience.",
+      // Đã cập nhật câu chào sang tiếng Việt:
+      text: "Xin chào! Tôi là trợ lý AI đại diện cho Nguyễn Hữu Văn Trí (Alden). Bạn có thể hỏi tôi về kỹ năng, dự án hoặc kinh nghiệm của anh ấy.",
     },
   ]);
   const [isLoading, setIsLoading] = useState(false);
@@ -104,9 +105,9 @@ const ChatbotModal: React.FC<ChatbotModalProps> = ({
       console.error("Error sending message:", error);
       const errorMessage: ChatMessage = {
         role: "ai",
-        text: `Sorry, I encountered an error${
+        text: `Xin lỗi, tôi gặp lỗi ${
           error instanceof Error ? `: ${error.message}` : "."
-        }. Please try again later.`,
+        }. Vui lòng thử lại sau.`, // Dịch thông báo lỗi
       };
       setMessages((prev) => [...prev, errorMessage]);
     } finally {
@@ -141,10 +142,10 @@ const ChatbotModal: React.FC<ChatbotModalProps> = ({
             {/* 1. Header */}
             <DialogHeader className="p-4 border-b border-border/20 text-center flex-shrink-0 bg-card/80 backdrop-blur-sm z-10 relative">
               <DialogTitle className="text-lg font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-red-400 to-yellow-400">
-                Tri (Alden)'s AI Assistant
+                Trợ lý AI của Trí (Alden)
               </DialogTitle>
               <DialogDescription className="text-xs text-muted-foreground mt-1">
-                Powered by Gemini
+                Hỗ trợ bởi Gemini
               </DialogDescription>
             </DialogHeader>
 
@@ -172,7 +173,7 @@ const ChatbotModal: React.FC<ChatbotModalProps> = ({
               className="ring-offset-background focus:ring-ring data-[state=open]:bg-accent data-[state=open]:text-muted-foreground absolute top-3 right-3 rounded-sm opacity-70 transition-opacity hover:opacity-100 focus:ring-2 focus:ring-offset-2 focus:outline-none disabled:pointer-events-none"
             >
               <XIcon className="size-4" />
-              <span className="sr-only">Close</span>
+              <span className="sr-only">Đóng</span>
             </DialogPrimitive.Close>
           </DialogPrimitive.Content>
         </div>

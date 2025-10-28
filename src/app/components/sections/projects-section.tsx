@@ -25,27 +25,22 @@ const ProjectsSection = () => {
       id="projects"
       className="container max-w-5xl mx-auto px-4 py-20 md:py-28"
     >
-      {/* ... Header section giữ nguyên ... */}
       <div className="text-center mb-12" data-aos="fade-down">
         <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
-          Projects & Research
+          Dự án & Nghiên cứu
         </h2>
         <p className="text-lg text-muted-foreground mt-2">
-          Demonstrate capacity through real projects.
+          Thể hiện năng lực thông qua các dự án thực tế.
         </p>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-        {/* 4. Tăng gap (ví dụ: gap-10) */}
         {projectsToShow.map((project, index) => (
-          // 1. Thẻ Bọc Ngoài (Wrapper) - Đặt ngữ cảnh `relative` và `group`
           <div
             key={project.id}
             className="animated-border-wrapper border-none hover:border z-10 relative group p-[2px] rounded-xl h-full transition-shadow duration-300" // Đặt p-[2px] làm độ dày border, và rounded-xl
             data-aos="fade-up"
             data-aos-delay={index * 100}
           >
-            {/* 2. Lớp Border Gradient (Absolute Background) */}
-            {/* Ban đầu: ẨN, khi hover: HIỆN gradient. Sử dụng ::before thay vì thẻ div trực tiếp để sạch code hơn, nhưng cách này vẫn hoạt động */}
             <div
               className={cn(
                 "absolute inset-0 -z-10 rounded-xl", // rounded-xl phải khớp với thẻ cha
@@ -55,14 +50,12 @@ const ProjectsSection = () => {
               )}
             ></div>
 
-            {/* 3. Card bên trong (Card nội dung) */}
             <Card
               className={cn(
                 "flex flex-col overflow-hidden h-full bg-white dark:bg-card", // Thêm màu nền để che gradient
                 "rounded-[10px] border-none" // Bo góc nhỏ hơn thẻ cha, loại bỏ border gốc
               )}
             >
-              {/* --- Nội dung Card giữ nguyên --- */}
               <div className="relative w-full h-48 md:h-56">
                 <Image
                   src={project.imageUrl}
@@ -79,7 +72,6 @@ const ProjectsSection = () => {
                 <CardDescription> {project.description}</CardDescription>
               </CardHeader>
               <CardContent className="flex-grow space-y-4">
-                {/* ... (Problem, Solution, Result, TechStack) ... */}
                 <div>
                   <h4 className="font-semibold mb-1">Problem: </h4>
                   <p className="text-sm text-muted-foreground ">

@@ -26,10 +26,10 @@ export default function DisciplineSection() {
         data-aos-delay="100"
       >
         <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
-          Discipline & Inner Strength
+          Kỷ luật và sức mạnh nội tâm
         </h2>
         <p className="text-lg text-muted-foreground mt-2">
-          The foundation for sustainable development and long-term vision.
+          Nền tảng cho phát triển bền vững và tầm nhìn dài hạn.
         </p>
       </div>
 
